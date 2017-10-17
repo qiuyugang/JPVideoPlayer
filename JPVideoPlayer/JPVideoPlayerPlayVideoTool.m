@@ -425,7 +425,9 @@ static NSString *JPVideoPlayerURL = @"www.newpan.com";
 #pragma mark - AVPlayer Observer
 
 - (void)playerItemDidPlayToEnd:(NSNotification *)notification{
-    
+    if(![[notification object] isEqual:self.currentPlayVideoItem.player.currentItem]){
+        return;
+    }
     // ask need automatic replay or not.
     if (self.delegate && [self.delegate respondsToSelector:@selector(playVideoTool:shouldAutoReplayVideoForURL:)]) {
         if (![self.delegate playVideoTool:self shouldAutoReplayVideoForURL:self.currentPlayVideoItem.url]) {
